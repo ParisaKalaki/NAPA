@@ -2,8 +2,9 @@ version: "3"
 
 services:
   backend:
-    build: backend
-    image: backend
+    build:
+      context: backend
+      dockerfile: Dockerfile
     restart: "always"
     volumes:
       - ./backend/:/app
