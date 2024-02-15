@@ -45,43 +45,42 @@ The project is organized into frontend and backend directories:
   - `db.js`: Configuration for connecting to the PostgreSQL database.
   - `services/apiShips.js`: API service for handling ship data CRUD operations.
   - `__test__/`: Contains unit tests for frontend components.
+  - `requests`: Contains HTTP requests.
 
 ## Running the Application
 
 1. Clone the repository:
 
    ```bash
-   git clone <repository-url>
+   git clone git@github.com:ParisaKalaki/NAPA.git
    ```
 
 2. Navigate to the project directory:
-   ```bash
-   cd <project-directory>
-   ```
-3. Install the npm package;
-   ```bash
-   npm install
-   ```
-4. Run the Docker-compose
 
    ```bash
-   docker-compose up
+   cd NAPA
    ```
 
-5. Access the web application in your browser at http://localhost:5173
+3. Run the Docker-compose
+
+   ```bash
+   docker-compose up -d
+   ```
+
+4. Access the web application in your browser at http://localhost:5173
 
 ## Testing
 
 Both frontend and backend components are tested:
 
-- Frontend tests are located in the src/**test** directory and can be run using the these command:
+- Frontend tests are located in the src/**\_\_test\_\_** directory and can be run using the these command:
 
   ```bash
   docker-compose exec frontend npm test
 
   ```
 
-- Backend tests can be implemented using Jest and Supertest for API testing.
+- Backend tests are located in the backend/**\_\_test\_\_** directory and can be run using the these command:
 
   ```bash
   docker-compose exec backend npm run test

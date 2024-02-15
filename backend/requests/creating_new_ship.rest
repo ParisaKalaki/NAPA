@@ -1,0 +1,11 @@
+Post http://localhost:3001/api/ships HTTP/1.1
+content-type: application/json
+
+{
+      
+    "BaseDateTime": "2023-01-01T00:00:00",
+    "LAT": 444,
+    "LON": 65611,
+    "IMO": 3444444
+  
+}

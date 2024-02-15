@@ -1,0 +1,55 @@
+version: "3"
+
+services:
+  backend:
+    build: backend
+    image: backend
+    restart: "always"
+    volumes:
+      - ./backend/:/app
+    ports:
+      - 3001:3001
+    depends_on:
+      - db
+    env_file:
+      - project.env
+
+  frontend:
+    build:
+      context: frontend
+      dockerfile: Dockerfile
+    env_file:
+      - project.env
+    volumes:
+      - ./frontend/:/app
+    ports:
+      - "5173:5173"
+
+  db:
+    image: postgres:13
+    env_file:
+      - project.env
+    volumes:
+      - ./backend/db/ais_db.sql:/docker-entrypoint-initdb.d/ais_db.sql
+    ports:
+      - "5432:5432"
+
+  db_get:
+    image: postgres:13
+    env_file:
+      - project.env
+    volumes:
+      - ./backend/db/ais_db.sql:/docker-entrypoint-initdb.d/ais_db.sql
+  db_post:
+    image: postgres:13
+    env_file:
+      - project.env
+    volumes:
+      - ./backend/db/ais_db.sql:/docker-entrypoint-initdb.d/ais_db.sql
+
+  pgadmin:
+    image: dpage/pgadmin4
+    env_file:
+      - project.env
+    ports:
+      - "8080:80"
