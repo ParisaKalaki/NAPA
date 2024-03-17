@@ -5,7 +5,7 @@ import FormRow from "../../ui/FormRow";
 import Input from "../../ui/Input";
 import Button from "../../ui/Button";
 
-function CreateShipForm() {
+function CreateShipForm({ onCloseModal }) {
   const {
     register,
     handleSubmit,
@@ -21,6 +21,7 @@ function CreateShipForm() {
       {
         onSuccess: (data) => {
           reset();
+          onCloseModal?.();
         },
       }
     );

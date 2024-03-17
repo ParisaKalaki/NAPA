@@ -1,6 +1,7 @@
 import { useForm, Controller } from "react-hook-form";
 import { useSearchParams } from "react-router-dom";
 import { useShips } from "./useShips";
+import { useState } from "react";
 import Form from "../../ui/Form";
 import Input from "../../ui/Input";
 import styled from "styled-components";
@@ -27,9 +28,16 @@ function ShipTableOperations() {
 
   const [serachParams, setSearchParams] = useSearchParams();
   const { ships } = useShips();
-
+  const [inputValue, setInputValue] = useState("");
+  // let IMOoptions = ships?.map((ship) => ({
+  //   id: ship.id,
+  //   IMO: ship.IMO.slice(3),
+  // }));
+  // let uniqueIMOoptions = IMOoptions.filter(
+  //   (ship, index, self) => index === self.findIndex((s) => s.IMO === ship.IMO)
+  // );
   let IMOoptions = ships?.map((ship) => ship.IMO.slice(3));
-  let uniqIMOoptions = [...new Set(IMOoptions)];
+  let uniqueIMOoptions = [...new Set(IMOoptions)];
 
   return (
     <TableOperations>
@@ -40,21 +48,26 @@ function ShipTableOperations() {
             name="imo"
             render={({ field: { onChange, value } }) => (
               <Autocomplete
-                id="imo"
-                options={uniqIMOoptions}
+                id="combo-box-demo"
+                inputValue={inputValue}
+                onInputChange={(event, newInputValue) => {
+                  setInputValue(newInputValue);
+                }}
+                options={uniqueIMOoptions}
+                getOptionLabel={(option) => (option ? option : "")}
+                isOptionEqualToValue={(option, value) => option === value}
                 renderInput={(params) => (
                   <Div ref={params.InputProps.ref}>
                     <Input
                       data-testid="imo"
                       {...params.inputProps}
-                      placeholder="Enter IMO number"
-                      onChange={onChange}
+                      placeholder="Choose IMO number"
                     />
                   </Div>
                 )}
-                onChange={(event, data) => {
-                  onChange(data);
-                  serachParams.set("IMO", data);
+                onChange={(event, value) => {
+                  onChange(value);
+                  serachParams.set("IMO", value);
                   setSearchParams(serachParams);
                 }}
                 value={value || null}
